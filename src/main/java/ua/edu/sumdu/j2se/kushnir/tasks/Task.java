@@ -1,7 +1,5 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
-
 public class Task {
     private String title;
     private int time;
@@ -145,15 +143,10 @@ public class Task {
             return -1;
         } else {
             if (!repeated) {
-                if (current >= time) {
-                    return -1;
-                } else {
-                    return time;
-                }
-
+                return time;
             } else {
                 int newTime = -1;
-                for (int i = start; i < end; i = i + interval) {
+                for (int i = start; i <= end; i = i + interval) {
                     if (current < i) {
                         newTime = i;
                         break;
