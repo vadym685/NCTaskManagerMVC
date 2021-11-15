@@ -10,23 +10,31 @@ public class Task {
     private boolean repeated;
 
     // конструктор для створення неактивної неповторюваної задачі
-    public Task(String title, int time) {
+    public Task(String title, int time) throws IllegalArgumentException {
+        if (time < 0) {
+            throw new IllegalArgumentException("time must be positive");
+        }
         this.title = title;
         this.time = time;
         this.start = time;
         this.end = time;
         this.active = false;
         this.repeated = false;
+
     }
 
     // конструктор для створення неактивної повторюваної задачі
-    public Task(String title, int start, int end, int interval) {
+    public Task(String title, int start, int end, int interval) throws IllegalArgumentException {
+        if (interval < 0) {
+            throw new IllegalArgumentException("interval must be > 0 ");
+        }
         this.title = title;
         this.start = start;
         this.end = end;
         this.interval = interval;
         this.active = false;
         this.repeated = true;
+
     }
 
     // Метод для доступу до назви задачі
@@ -49,7 +57,10 @@ public class Task {
     }
 
     // Метод для зміни часу виконання задачі, якщо таск повторюваний він буде перетворений на неповторюваний
-    public void setTime(int time) {
+    public void setTime(int time) throws IllegalArgumentException {
+        if (time < 0) {
+            throw new IllegalArgumentException("time must be positive");
+        }
         if (this.repeated) {
             this.repeated = false;
             this.start = 0;
@@ -60,7 +71,10 @@ public class Task {
     }
 
     // Метод для зміни часу виконання задачі, якщо таск неповторюваний він буде перетворений на повторюваний
-    public void setTime(int start, int end, int interval) {
+    public void setTime (int start, int end, int interval) throws IllegalArgumentException{
+        if (interval < 0) {
+            throw new IllegalArgumentException("interval must be > 0 ");
+        }
         if (!repeated) {
             this.repeated = true;
             this.time = 0;
@@ -99,12 +113,15 @@ public class Task {
     }
 
     // Метод для доступу до інтервалу з яким повторюється задача
-    public int getInterval() {
+    public int getInterval()  {
         return interval;
     }
 
     // Метод для зміни інтервалу з яким повторюється задача
-    public void setInterval(int interval) {
+    public void setInterval(int interval)throws IllegalArgumentException {
+        if (interval < 0) {
+            throw new IllegalArgumentException("interval must be > 0 ");
+        }
         this.interval = interval;
     }
 

@@ -85,10 +85,11 @@ public class ArrayTaskList {
     public ArrayTaskList incoming(int from, int to) {
         ArrayTaskList arrayTaskList = new ArrayTaskList();
         for (Task task : arrayTasks) {
-            if (task != null && (task.nextTimeAfter(from) < to) && (task.nextTimeAfter(from) != -1)) {
+            if (task != null && (task.nextTimeAfter(from) < to) && task.nextTimeAfter(from) > from &&(task.nextTimeAfter(from) != -1)) {
                 arrayTaskList.add(task);
             }
         }
         return arrayTaskList;
     }
+
 }
