@@ -15,6 +15,9 @@ public class LinkedTaskList {
         }
     }
 
+    /*
+        метод додає переданий елемент в кінець списку
+    */
     public void add(Task task) {
         if (headNode == null) {
             headNode = new Node(task);
@@ -33,6 +36,11 @@ public class LinkedTaskList {
         countOfElements++;
     }
 
+    /*
+       метод видаляє переданий елемент з списку
+       в методі перевіряєм чи переданий елемент є обьєктом класу Task,
+       проходимось по списку і шукаєм наш елемент, проводимо операції з нодами
+     */
     public boolean remove(Task task) throws NullPointerException {
         if (task != null) {
             Node currentNode = headNode;
@@ -70,10 +78,16 @@ public class LinkedTaskList {
         return false;
     }
 
+    /*
+        метод повертає кількість елементів в списку
+     */
     public int size() {
         return countOfElements;
     }
 
+    /*
+        метод повертає елемент в списку по індексу
+     */
     public Task getTask(int index) throws IndexOutOfBoundsException {
         if ((index < 0) || (index > countOfElements)) {
             throw new IndexOutOfBoundsException("Index is out of bounds");
@@ -85,6 +99,11 @@ public class LinkedTaskList {
         return current.task;
     }
 
+    /*
+       метод повертає linkedTaskList задач які будуть виконані хоча б раз у переданому проміжку
+       проходимось по початковому масиву, якщо знайшли підходящий елемент, додаємо його в
+       новий обьєкт класу linkedTaskList
+    */
     public LinkedTaskList incoming(int from, int to) {
         LinkedTaskList linkedTaskList = new LinkedTaskList();
         Node current = headNode;
