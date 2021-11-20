@@ -2,16 +2,17 @@ package ua.edu.sumdu.j2se.kushnir.tasks;
 
 import java.util.Arrays;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList {
     private Task[] arrayTasks = new Task[10];
     int countOfElements = 0;
 
     /*
-         метод додає переданий елемент в масив
-         в методі перевіряєм чи переданий елемент є обьєктом класу Task,
-         на кожній ітерації виклику методу добаємо елемент в комірку з індексом який = countOfElements і збільшуємо index на 1
-         якщо індекс = довжині поточного масиву, копіюєм масив в новий збільшуючи його довжину.
+          The method adds the passed element to the array
+          in the method we check whether the passed element is an object of class Task,
+          on each iteration of a method call we add an element to a cell with an index which = countOfElements and we increase index by 1
+          if the index = the length of the current array, copy the array to a new one increasing its length.
      */
+    @Override
     public void add(Task task) throws NullPointerException {
         if (task != null) {
             if (countOfElements == arrayTasks.length) {
@@ -25,12 +26,13 @@ public class ArrayTaskList {
     }
 
     /*
-         метод видаляє переданий елемент з масиву
-         в методі перевіряєм чи переданий елемент є обьєктом класу Task,
-         проходимось по масиву і шукаєм наш елемент, зануляєм його
-         копіюєм всі елементи які знаходяться після видаленого в наш масив
-         зменшуєм countOfElements на 1 для коректної подальшої роботи методу add
+         The method removes the passed element from the array
+         in the method we check whether the passed element is an object of class Task,
+         we walk along the array and look for our element, zero it
+         we copy all elements which are after deleted in our array
+         reduce countOfElements by 1 for the correct further work of the add method
      */
+    @Override
     public boolean remove(Task task) {
         if (task != null) {
 
@@ -55,8 +57,9 @@ public class ArrayTaskList {
     }
 
     /*
-        метод повертає кількість не null елементів в масиві
+       The method returns the number of non-null elements in the array
      */
+    @Override
     public int size() {
         int size = 0;
         for (Task task : arrayTasks) {
@@ -68,8 +71,9 @@ public class ArrayTaskList {
     }
 
     /*
-        метод повертає елемент в масиві по індексу
+        The method returns an element in the array by index
      */
+    @Override
     public Task getTask(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= arrayTasks.length) {
             throw new IndexOutOfBoundsException("Index is out of bounds");
@@ -78,18 +82,10 @@ public class ArrayTaskList {
     }
 
     /*
-        метод повертає масив задач які будуть виконані хоча б раз у переданому проміжку
-        проходимось по початковому масиву, якщо знайшли підходящий елемент, додаємо його в
-        новий обьєкт класу ArrayTaskList
+        The method returns the list type
      */
-    public ArrayTaskList incoming(int from, int to) {
-        ArrayTaskList arrayTaskList = new ArrayTaskList();
-        for (Task task : arrayTasks) {
-            if (task != null && (task.nextTimeAfter(from) < to) && task.nextTimeAfter(from) > from &&(task.nextTimeAfter(from) != -1)) {
-                arrayTaskList.add(task);
-            }
-        }
-        return arrayTaskList;
+    @Override
+    ListTypes.types getListType() {
+        return ListTypes.types.ARRAY;
     }
-
 }
