@@ -9,7 +9,7 @@ public class Task {
     private boolean active;
     private boolean repeated;
 
-    // конструктор для створення неактивної неповторюваної задачі
+    // Constructor to create an inactive no repetitive task
     public Task(String title, int time) throws IllegalArgumentException {
         if (time < 0) {
             throw new IllegalArgumentException("time must be positive");
@@ -23,7 +23,7 @@ public class Task {
 
     }
 
-    // конструктор для створення неактивної повторюваної задачі
+    // Constructor to create an inactive repetitive task
     public Task(String title, int start, int end, int interval) throws IllegalArgumentException {
         if (interval < 0) {
             throw new IllegalArgumentException("interval must be > 0 ");
@@ -37,7 +37,7 @@ public class Task {
 
     }
 
-    // Метод для доступу до назви задачі
+    // Method for accessing the task name
     public String getTitle() {
         return title;
     }
@@ -47,7 +47,10 @@ public class Task {
         this.title = title;
     }
 
-    // Метод для доступу до часу виконання задачі, якщо таск повторюваний повернеться початок проміжку часу виконання задачі, в інших випадках  час вивиконання
+    /*
+     Method for accessing the task execution time, if the task is repeated, the beginning
+     of the task execution time interval will return, in other cases the execution time
+    */
     public int getTime() {
         if (repeated) {
             return start;
@@ -56,7 +59,7 @@ public class Task {
         }
     }
 
-    // Метод для зміни часу виконання задачі, якщо таск повторюваний він буде перетворений на неповторюваний
+    // A method for changing the task execution time, if the task is repeated it will be converted to non-repeated
     public void setTime(int time) throws IllegalArgumentException {
         if (time < 0) {
             throw new IllegalArgumentException("time must be positive");
@@ -70,8 +73,8 @@ public class Task {
         this.time = time;
     }
 
-    // Метод для зміни часу виконання задачі, якщо таск неповторюваний він буде перетворений на повторюваний
-    public void setTime (int start, int end, int interval) throws IllegalArgumentException{
+    // A method for changing the task execution time, if the task is no repeated it will be converted to repeated
+    public void setTime(int start, int end, int interval) throws IllegalArgumentException {
         if (interval < 0) {
             throw new IllegalArgumentException("interval must be > 0 ");
         }
@@ -84,7 +87,10 @@ public class Task {
         this.interval = interval;
     }
 
-    // Метод для доступу до проміжку виконання задачі, якщо таск неповторюваний повернеться час вивиконання, в інших випадках початок проміжку часу виконання задачі
+    /*
+     Method for accessing the task interval, if the task is no repeated, the execution
+     time is returned, in other cases, the beginning of the task interval
+    */
     public int getStartTime() {
         if (!repeated) {
             return time;
@@ -93,12 +99,15 @@ public class Task {
         }
     }
 
-    // Метод для зміни проміжку часу виконання задачі
+    // A method for changing the time interval of the task
     public void setStartTime(int start) {
         this.start = start;
     }
 
-    // Метод для доступу до проміжку виконання задачі, якщо таск неповторюваний повернеться час вивиконання, в інших випадках кінецб проміжку часу виконання задачі
+    /*
+         Method for accessing the task interval, if the task is no repeated,
+         the execution time is returned, in other cases the end of the task interval
+     */
     public int getEndTime() {
         if (!repeated) {
             return time;
@@ -107,45 +116,45 @@ public class Task {
         }
     }
 
-    // Метод для зміни проміжку часу виконання задачі
+    // A method for changing the time interval of the task
     public void setEndTime(int end) {
         this.end = end;
     }
 
-    // Метод для доступу до інтервалу з яким повторюється задача
-    public int getInterval()  {
+    // The method for accessing the interval with which the task is repeated
+    public int getInterval() {
         return interval;
     }
 
-    // Метод для зміни інтервалу з яким повторюється задача
-    public void setInterval(int interval)throws IllegalArgumentException {
+    // A method for changing the interval at which the task is repeated
+    public void setInterval(int interval) throws IllegalArgumentException {
         if (interval < 0) {
             throw new IllegalArgumentException("interval must be > 0 ");
         }
         this.interval = interval;
     }
 
-    // Метод для доступу до поля яке вказує на те чи задача активна/не активна
+    // A method for accessing a field that indicates whether the task is active / inactive
     public boolean isActive() {
         return active;
     }
 
-    // Метод для зміни поля яке вказує на те чи задача активна/не активна
+    // A method for changing a field that indicates whether a task is active / inactive
     public void setActive(boolean active) {
         this.active = active;
     }
 
-    // Метод для доступу до поля яке вказує на те чи задача повторювана/не повторювана
+    // A method for accessing a field that indicates whether the task is repetitive / non-repetitive
     public boolean isRepeated() {
         return repeated;
     }
 
-    // Метод для зміни поля яке вказує на те чи задача повторювана/не повторювана
+    // A method for changing a field that indicates whether a task is repetitive / non-repetitive
     public void setRepeated(boolean repeated) {
         this.repeated = repeated;
     }
 
-    // Метод для доступу до інтервалу з яким повторюється задача, якщо задача не повторювана, то повертається 0, в інших випадках інтервал
+    // The method for accessing the interval with which the task is repeated, if the task is not repeated, it returns 0, in other cases the interval
     public int getRepeatInterval() {
         if (repeated) {
             return interval;
@@ -154,7 +163,7 @@ public class Task {
         }
     }
 
-    // Метод для пошуку наступного часу виконання задачі
+    // A method for finding the next task execution time
     public int nextTimeAfter(int current) {
         if (!active) {
             return -1;

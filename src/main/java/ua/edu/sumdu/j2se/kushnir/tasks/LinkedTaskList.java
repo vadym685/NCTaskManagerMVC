@@ -1,6 +1,6 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
-public class LinkedTaskList {
+public class LinkedTaskList extends AbstractTaskList {
     private Node headNode;
     int countOfElements = 0;
     private Node tailNode;
@@ -16,8 +16,9 @@ public class LinkedTaskList {
     }
 
     /*
-        метод додає переданий елемент в кінець списку
+        The method adds the passed element to the end of the list
     */
+    @Override
     public void add(Task task) {
         if (headNode == null) {
             headNode = new Node(task);
@@ -37,10 +38,11 @@ public class LinkedTaskList {
     }
 
     /*
-       метод видаляє переданий елемент з списку
-       в методі перевіряєм чи переданий елемент є обьєктом класу Task,
-       проходимось по списку і шукаєм наш елемент, проводимо операції з нодами
+        The method removes the passed item from the list
+        in the method we check whether the passed element is an object of class Task,
+        we go through the list and look for our element, we carry out operations with nodes
      */
+    @Override
     public boolean remove(Task task) throws NullPointerException {
         if (task != null) {
             Node currentNode = headNode;
@@ -79,15 +81,17 @@ public class LinkedTaskList {
     }
 
     /*
-        метод повертає кількість елементів в списку
+        The method returns the number of items in the list
      */
+    @Override
     public int size() {
         return countOfElements;
     }
 
     /*
-        метод повертає елемент в списку по індексу
+        The method returns an item in the index list
      */
+    @Override
     public Task getTask(int index) throws IndexOutOfBoundsException {
         if ((index < 0) || (index > countOfElements)) {
             throw new IndexOutOfBoundsException("Index is out of bounds");
@@ -100,19 +104,10 @@ public class LinkedTaskList {
     }
 
     /*
-       метод повертає linkedTaskList задач які будуть виконані хоча б раз у переданому проміжку
-       проходимось по початковому масиву, якщо знайшли підходящий елемент, додаємо його в
-       новий обьєкт класу linkedTaskList
+        The method returns the list type
     */
-    public LinkedTaskList incoming(int from, int to) {
-        LinkedTaskList linkedTaskList = new LinkedTaskList();
-        Node current = headNode;
-        while (current != null) {
-            if (current.task != null && (current.task.nextTimeAfter(from) < to) && current.task.nextTimeAfter(from) > from && (current.task.nextTimeAfter(from) != -1)) {
-                linkedTaskList.add(current.task);
-            }
-            current = current.nextNode;
-        }
-        return linkedTaskList;
+    @Override
+    ListTypes.types getListType() {
+        return ListTypes.types.LINKED;
     }
 }
