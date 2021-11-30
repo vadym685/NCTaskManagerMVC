@@ -1,6 +1,6 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
-abstract class AbstractTaskList {
+abstract class AbstractTaskList implements Iterable<Task> {
 
     abstract void add(Task task);
 

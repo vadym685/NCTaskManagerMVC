@@ -5,8 +5,7 @@ public class Main {
     public static void main(String[] args) {
 //		System.out.println("Hello");
         Task task = new Task("Shopping1", 11, 14, 2);
-        Task task1 = new Task("Shopping2", 11, 14, 2);
-        Task task2 = new Task("Shopping3", 11, 14, 2);
+
         task.setActive(true);
 
         int nextTimeAfter = task.nextTimeAfter(11);
@@ -15,12 +14,20 @@ public class Main {
         LinkedTaskList linkedTaskList = new LinkedTaskList();
 
         linkedTaskList.add(task);
-        linkedTaskList.add(task1);
-        linkedTaskList.add(task2);
-        linkedTaskList.remove(task1);
+        ArrayTaskList arrayTaskList = new ArrayTaskList();
+        arrayTaskList.add(task);
+        Boolean aBoolean = arrayTaskList.iterator().hasNext();
+//        Task task1 = arrayTaskList.iterator().next();
+        arrayTaskList.remove(task);
 
-        Task head = linkedTaskList.getTask(0);
-        Task tempTask1 = linkedTaskList.getTask(1);
+        AbstractTaskList linkedTaskList1 = TaskListFactory.createTaskList(ListTypes.types.LINKED);
+        try {
+            Task head = linkedTaskList.getTask(0);
+        }finally{
+            Task tempTask1 = linkedTaskList.getTask(1);
+        }
+
+
 		Task tempTask2 = linkedTaskList.getTask(2);
     }
 }

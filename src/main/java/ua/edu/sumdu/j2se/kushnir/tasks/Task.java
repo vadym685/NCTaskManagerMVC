@@ -1,6 +1,8 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
-public class Task {
+import java.util.Objects;
+
+public class Task implements Cloneable {
     private String title;
     private int time;
     private int start;
@@ -180,6 +182,45 @@ public class Task {
                 }
                 return newTime;
             }
+        }
+    }
+
+    @Override
+    public String toString() {
+
+            return "Task(" +
+                    "title='" + title + '\'' +
+                    ", time=" + time +
+                    ", start=" + start +
+                    ", end=" + end +
+                    ", interval=" + interval +
+                    ", active=" + active +
+                    ", repeated=" + repeated +
+                    ')';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle(), getTime(), getStartTime(), getEndTime(), getInterval(), isActive(), isRepeated());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return time == task.getTime()
+                && start == task.getStartTime() && end == task.getEndTime()
+                && interval == task.getInterval() && active == task.isActive()
+                && repeated == task.isRepeated() && Objects.equals((title), task.getTitle());
+    }
+
+    @Override
+    public Task clone() {
+        try {
+            return (Task) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
         }
     }
 }

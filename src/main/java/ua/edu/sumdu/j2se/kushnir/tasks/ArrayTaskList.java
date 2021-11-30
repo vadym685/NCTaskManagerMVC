@@ -1,8 +1,10 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class ArrayTaskList extends AbstractTaskList {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable{
     private Task[] arrayTasks = new Task[10];
     int countOfElements = 0;
 
@@ -87,5 +89,72 @@ public class ArrayTaskList extends AbstractTaskList {
     @Override
     ListTypes.types getListType() {
         return ListTypes.types.ARRAY;
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new Iterator<Task>() {
+
+            private int cursor = 0;
+            private int last = -1;
+
+            @Override
+            public boolean hasNext() {
+                if (countOfElements == 1) {
+                    return false;
+                }
+                return cursor < size();
+            }
+
+            @Override
+            public Task next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                int i = cursor;
+                Task next = getTask(i);
+                last = i;
+                cursor = i + 1;
+                return next;
+            }
+
+            @Override
+            public void remove() {
+                if (last < 0) {
+                    throw new IllegalStateException();
+                }
+                ArrayTaskList.this.remove(getTask(last));
+                if (last < cursor) {
+                    cursor--;
+                    last = -1;
+                }
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayTaskList\n" +
+                Arrays.toString(arrayTasks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(arrayTasks);
+    }
+
+    @Override
+    public ArrayTaskList clone() throws CloneNotSupportedException {
+        ArrayTaskList list =(ArrayTaskList) super.clone();
+        list.arrayTasks = Arrays.copyOf(this.arrayTasks, this.arrayTasks.length);
+        return list;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayTaskList arrayTaskList = (ArrayTaskList) o;
+        return countOfElements == arrayTaskList.countOfElements && Arrays.equals(arrayTasks, arrayTaskList.arrayTasks);
     }
 }
