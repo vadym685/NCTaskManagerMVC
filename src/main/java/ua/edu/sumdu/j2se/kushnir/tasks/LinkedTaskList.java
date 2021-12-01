@@ -1,9 +1,14 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
-public class LinkedTaskList extends AbstractTaskList {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
+public class LinkedTaskList extends AbstractTaskList implements Cloneable {
     private Node headNode;
     int countOfElements = 0;
     private Node tailNode;
+
 
     private static class Node {
         private final Task task;
@@ -109,5 +114,91 @@ public class LinkedTaskList extends AbstractTaskList {
     @Override
     ListTypes.types getListType() {
         return ListTypes.types.LINKED;
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new Iterator<Task>() {
+            private Node currentNode = headNode;
+            private Node afterDeleteNextNode;
+
+            @Override
+            public boolean hasNext() {
+                if (afterDeleteNextNode !=null){
+                    currentNode = afterDeleteNextNode;
+                }
+                return currentNode.nextNode != null;
+            }
+
+            @Override
+            public Task next() {
+                if (afterDeleteNextNode !=null){
+                    currentNode = afterDeleteNextNode;
+                }
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                Task returnedTask = currentNode.nextNode.task;
+                currentNode = currentNode.nextNode;
+                return returnedTask;
+            }
+
+            @Override
+            public void remove() {
+                if (afterDeleteNextNode !=null){
+                    currentNode = afterDeleteNextNode;
+                }
+                if (currentNode.nextNode != null) {
+                    currentNode.nextNode.prevNode = currentNode.prevNode;
+                } else {
+                    tailNode = currentNode.prevNode;
+                }
+                if (currentNode.prevNode != null) {
+                    currentNode.prevNode.nextNode = currentNode.nextNode;
+                } else {
+                    headNode = currentNode.nextNode;
+                }
+                afterDeleteNextNode = currentNode.nextNode;
+                currentNode.nextNode = null;
+                currentNode.prevNode = null;
+                countOfElements--;
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        return "LinkedTaskList{" +
+                "headNode=" + headNode +
+                ", countOfElements=" + countOfElements +
+                ", tailNode=" + tailNode +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(headNode, countOfElements, tailNode,headNode.nextNode.task,tailNode.prevNode.task);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedTaskList that = (LinkedTaskList) o;
+        return countOfElements == that.countOfElements && headNode.equals(that.headNode) && tailNode.equals(that.tailNode);
+    }
+
+    @Override
+    public LinkedTaskList clone() {
+        try {
+            LinkedTaskList list = (LinkedTaskList) super.clone();
+            list.headNode = null;
+            for (int i = this.size() - 1; i >= 0; i--) {
+                list.add(this.getTask(i).clone());
+            }
+            return list;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
