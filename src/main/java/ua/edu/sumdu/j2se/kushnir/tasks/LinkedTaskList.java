@@ -3,6 +3,7 @@ package ua.edu.sumdu.j2se.kushnir.tasks;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class LinkedTaskList extends AbstractTaskList implements Cloneable {
     private Node headNode;
@@ -219,5 +220,14 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        Stream.Builder<Task> builder = Stream.builder();
+        for (int i = 0; i < countOfElements; i++) {
+            builder.add(getTask(i));
+        }
+        return builder.build();
     }
 }
