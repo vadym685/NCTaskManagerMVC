@@ -71,8 +71,12 @@ public class Task implements Cloneable {
             this.start = 0;
             this.end = 0;
             this.interval = 0;
+        }else {
+            this.start = time;
+            this.end = time;
         }
         this.time = time;
+
     }
 
     // A method for changing the task execution time, if the task is no repeated it will be converted to repeated
@@ -171,6 +175,9 @@ public class Task implements Cloneable {
             return -1;
         } else {
             if (!repeated) {
+                if (current >= time) {
+                    return -1;
+                }
                 return time;
             } else {
                 int newTime = -1;
@@ -188,15 +195,14 @@ public class Task implements Cloneable {
     @Override
     public String toString() {
 
-            return "Task(" +
+            return "Task:" +
                     "title='" + title + '\'' +
                     ", time=" + time +
                     ", start=" + start +
                     ", end=" + end +
                     ", interval=" + interval +
                     ", active=" + active +
-                    ", repeated=" + repeated +
-                    ')';
+                    ", repeated=" + repeated;
     }
 
     @Override
@@ -209,6 +215,7 @@ public class Task implements Cloneable {
         if (this == o) return true;
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
+
         return time == task.getTime()
                 && start == task.getStartTime() && end == task.getEndTime()
                 && interval == task.getInterval() && active == task.isActive()
