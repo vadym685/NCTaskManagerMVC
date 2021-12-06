@@ -3,6 +3,7 @@ package ua.edu.sumdu.j2se.kushnir.tasks;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 public class ArrayTaskList extends AbstractTaskList implements Cloneable{
     private Task[] arrayTasks = new Task[10];
@@ -156,5 +157,10 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
         if (o == null || getClass() != o.getClass()) return false;
         ArrayTaskList arrayTaskList = (ArrayTaskList) o;
         return countOfElements == arrayTaskList.countOfElements && Arrays.equals(arrayTasks, arrayTaskList.arrayTasks);
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        return Arrays.stream(arrayTasks);
     }
 }
