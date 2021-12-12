@@ -72,7 +72,7 @@ public class Task implements Cloneable {
             this.start = null;
             this.end = null;
             this.interval = 0;
-        }else {
+        } else {
             this.start = time;
             this.end = time;
         }
@@ -180,7 +180,7 @@ public class Task implements Cloneable {
                 }
                 return time;
             } else {
-                for (LocalDateTime i = start; i.isBefore(end) && !i.isEqual(end); i = i.plusSeconds(interval)) {
+                for (LocalDateTime i = start; i.isBefore(end) || i.isEqual(end); i = i.plusSeconds(interval)) {
                     if (current.isBefore(i)) {
                         return i;
                     }
@@ -194,14 +194,14 @@ public class Task implements Cloneable {
     @Override
     public String toString() {
 
-            return "Task:" +
-                    "title='" + title + '\'' +
-                    ", time=" + time +
-                    ", start=" + start +
-                    ", end=" + end +
-                    ", interval=" + interval +
-                    ", active=" + active +
-                    ", repeated=" + repeated;
+        return "Task:" +
+                "title='" + title + '\'' +
+                ", time=" + time +
+                ", start=" + start +
+                ", end=" + end +
+                ", interval=" + interval +
+                ", active=" + active +
+                ", repeated=" + repeated;
     }
 
     @Override
