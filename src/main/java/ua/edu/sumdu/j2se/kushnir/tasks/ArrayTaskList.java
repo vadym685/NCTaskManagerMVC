@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
-public class ArrayTaskList extends AbstractTaskList implements Cloneable{
+public class ArrayTaskList extends AbstractTaskList implements Cloneable {
     private Task[] arrayTasks = new Task[10];
     int countOfElements = 0;
 
@@ -146,7 +146,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 
     @Override
     public ArrayTaskList clone() throws CloneNotSupportedException {
-        ArrayTaskList list =(ArrayTaskList) super.clone();
+        ArrayTaskList list = (ArrayTaskList) super.clone();
         list.arrayTasks = Arrays.copyOf(this.arrayTasks, this.arrayTasks.length);
         return list;
     }
