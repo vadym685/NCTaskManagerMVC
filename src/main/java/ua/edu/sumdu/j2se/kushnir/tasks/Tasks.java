@@ -7,7 +7,6 @@ import java.util.stream.StreamSupport;
 
 public class Tasks {
 
-
     /*
     Method that returns a subset of tasks that are scheduled to run at least once in an interval
     */
@@ -22,7 +21,7 @@ public class Tasks {
             Task currentTask = iterator.next();
             if (currentTask.nextTimeAfter(from) != null &&
                     (currentTask.nextTimeAfter(from).isBefore(to) ||
-                            currentTask.nextTimeAfter(from).equals(to))) {
+                            currentTask.nextTimeAfter(from).isEqual(to))) {
                 continue;
             }
             iterator.remove();

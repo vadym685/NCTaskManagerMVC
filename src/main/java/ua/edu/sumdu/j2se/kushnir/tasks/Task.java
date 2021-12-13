@@ -216,7 +216,7 @@ public class Task implements Cloneable {
         Task task = (Task) o;
 
         return time == task.getTime()
-                && start == task.getStartTime() && end == task.getEndTime()
+                && start.isEqual(task.getStartTime()) && end.isEqual(task.getEndTime())
                 && interval == task.getInterval() && active == task.isActive()
                 && repeated == task.isRepeated() && Objects.equals((title), task.getTitle());
     }
