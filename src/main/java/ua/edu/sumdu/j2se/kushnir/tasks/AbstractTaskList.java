@@ -1,8 +1,9 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
+import java.io.Serializable;
 import java.util.stream.Stream;
 
-abstract class AbstractTaskList implements Iterable<Task> {
+abstract class AbstractTaskList implements Iterable<Task>, Serializable {
 
     abstract void add(Task task);
 
