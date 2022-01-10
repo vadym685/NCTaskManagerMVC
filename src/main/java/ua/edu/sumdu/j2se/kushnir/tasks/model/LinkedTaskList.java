@@ -1,7 +1,6 @@
-package ua.edu.sumdu.j2se.kushnir.tasks;
+package ua.edu.sumdu.j2se.kushnir.tasks.model;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Stream;
 

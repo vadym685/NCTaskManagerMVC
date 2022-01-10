@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.kushnir.tasks;
+package ua.edu.sumdu.j2se.kushnir.tasks.model;
 
 import java.util.Arrays;
 import java.util.Iterator;

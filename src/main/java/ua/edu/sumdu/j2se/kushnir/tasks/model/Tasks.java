@@ -1,9 +1,7 @@
-package ua.edu.sumdu.j2se.kushnir.tasks;
+package ua.edu.sumdu.j2se.kushnir.tasks.model;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class Tasks {
 

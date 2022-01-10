@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.kushnir.tasks;
+package ua.edu.sumdu.j2se.kushnir.tasks.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -215,7 +215,7 @@ public class Task implements Cloneable, Serializable {
         if (this == o) return true;
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
-
+        
         return time == task.getTime()
                 && start.isEqual(task.getStartTime()) && end.isEqual(task.getEndTime())
                 && interval == task.getInterval() && active == task.isActive()

@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.kushnir.tasks;
+package ua.edu.sumdu.j2se.kushnir.tasks.model;
 
 
 import com.google.gson.Gson;
@@ -108,8 +108,8 @@ public class TaskIO {
         if (!file.exists()) {
             file = new File(file.getName());
         }
-        try (Writer fw = new FileWriter(file)) {
-            write(tasks, fw);
+        try (Writer fileWriter = new FileWriter(file)) {
+            write(tasks, fileWriter);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -117,8 +117,8 @@ public class TaskIO {
 
     // method that reads tasks from a file
     public static void readText(AbstractTaskList tasks, File file) {
-        try (FileReader fr = new FileReader(file)) {
-            read(tasks, fr);
+        try (FileReader fileReader = new FileReader(file)) {
+            read(tasks, fileReader);
         } catch (IOException e) {
             e.printStackTrace();
         }
