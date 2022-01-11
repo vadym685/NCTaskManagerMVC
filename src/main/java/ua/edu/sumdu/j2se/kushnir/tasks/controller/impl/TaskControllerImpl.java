@@ -4,14 +4,17 @@ import org.apache.log4j.Logger;
 import ua.edu.sumdu.j2se.kushnir.tasks.controller.controllers.TaskController;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.Task;
+import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.views.MainView;
 
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class TaskControllerImpl implements TaskController {
     private static final Logger log = Logger.getLogger(TaskControllerImpl.class);
     private final MainView view;
     private final AbstractTaskList list;
+    private final Scanner scanner;
 
     /**
      * Constructor.
@@ -22,6 +25,7 @@ public class TaskControllerImpl implements TaskController {
     public TaskControllerImpl(AbstractTaskList list, MainView view) {
         this.list = list;
         this.view = view;
+        scanner = new Scanner(System.in);
     }
 
     /**

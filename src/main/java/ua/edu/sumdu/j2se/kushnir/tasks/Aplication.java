@@ -1,11 +1,12 @@
 package ua.edu.sumdu.j2se.kushnir.tasks;
 
 import org.apache.log4j.Logger;
-import ua.edu.sumdu.j2se.kushnir.tasks.controller.controllers.MainControler;
+import ua.edu.sumdu.j2se.kushnir.tasks.controller.impl.MainControllerImpl;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.ListTypes;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.TaskIO;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.TaskListFactory;
+import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.views.MainView;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.impl.MainViewImpl;
 
@@ -38,13 +39,8 @@ public class Aplication {
         loadTaskData();
 
         log.info("Declare View and Controller");
-        MainView view = new MainViewImpl();
-        MainControler controller = new MainControler(atl, view) {
-            @Override
-            public void execute() {
-
-            }
-        };
+        MainView mainView = new MainViewImpl();
+        MainControllerImpl controller = new MainControllerImpl(atl, mainView);
         controller.execute();
 
         saveTaskData();
@@ -66,13 +62,8 @@ public class Aplication {
     }
 
     private void loadTaskData() {
-        try {
-            log.info("Reading tasks' data from json file");
-            TaskIO.readText(atl, new File(String.valueOf(jsonPath.toAbsolutePath())));
-            log.info("Reading data was successful");
-        } catch (IOException e) {
-            log.error(e);
-            Output.println("Error. Can't read tasks' data");
-        }
+        log.info("Reading tasks' data from json file");
+        TaskIO.readText(atl, new File(String.valueOf(jsonPath.toAbsolutePath())));
+        log.info("Reading data was successful");
     }
 }

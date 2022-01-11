@@ -1,17 +1,38 @@
 package ua.edu.sumdu.j2se.kushnir.tasks.view.impl;
 
 import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
+import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.views.MainView;
+import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.kushnir.tasks.view.views.TaskViev;
 
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class MainViewImpl implements MainView {
+    private static final Logger log = Logger.getLogger(MainView.class);
+    private final TaskViev taskView;
+    private final Scanner scanner;
+
+    public MainViewImpl() {
+        scanner = new Scanner(System.in);
+        taskView = new TaskViewImpl(scanner);
+    }
     /**
      * Displays application main menu.
      */
     @Override
     public void showMenu() {
-
+        log.info("Displaying the main user menu");
+        Output.println("==============Task Manager==============");
+        Output.println("# 1) Add task");
+        Output.println("# 2) Edit task");
+        Output.println("# 3) Delete task");
+        Output.println("# 4) Show tasks' list");
+        Output.println("# 5) Show tasks' calendar");
+        Output.println("# 0) Exit program");
+        Output.println("========================================");
+        Output.print("@ Your choice: ");
     }
 
     /**
@@ -19,7 +40,15 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public void editMenu() {
-
+        log.info("Displaying the user editing menu");
+        Output.println("==============Edit Menu==============");
+        Output.println("# 1) Task title");
+        Output.println("# 2) Task repeated status");
+        Output.println("# 3) Task active");
+        Output.println("# 4) Task time");
+        Output.println("# 0) To main menu");
+        Output.println("========================================");
+        Output.print("@ Your choice: ");
     }
 
     /**
@@ -29,7 +58,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public void showTaskList(AbstractTaskList list) {
-
+        log.info("Showing tasks' list");
+        taskView.showList(list);
     }
 
     /**
@@ -39,7 +69,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public void showCalendar(AbstractTaskList list) {
-
+        log.info("Showing tasks' calendar");
+        taskView.getCalendar(list);
     }
 
     /**
@@ -49,7 +80,19 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public boolean checkUserChoice() {
-        return false;
+        log.info("Checking user answer");
+        return userAnswer().equalsIgnoreCase("yes");
+    }
+
+    private String userAnswer() {
+        log.info("Parsing the user response");
+        String answer = scanner.nextLine();
+        while (!answer.equalsIgnoreCase("yes")
+                && !answer.equalsIgnoreCase("no")) {
+            Output.print("You should select #Yes# or #No#: ");
+            answer = scanner.nextLine();
+        }
+        return answer;
     }
 
     /**
@@ -59,7 +102,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public String getTitle() {
-        return null;
+        log.info("Getting task title");
+        return taskView.getTitle();
     }
 
     /**
@@ -69,7 +113,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public boolean getRepeatStatus() {
-        return false;
+        log.info("Getting repeated status");
+        return taskView.getRepeatStatus();
     }
 
     /**
@@ -79,7 +124,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public LocalDateTime getStartTime() {
-        return null;
+        log.info("Getting start time");
+        return taskView.getStartTime();
     }
 
     /**
@@ -89,7 +135,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public LocalDateTime getEndTime() {
-        return null;
+        log.info("Getting end time");
+        return taskView.getEndTime();
     }
 
     /**
@@ -99,7 +146,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public int getInterval() {
-        return 0;
+        log.info("Getting task interval");
+        return taskView.getInterval();
     }
 
     /**
@@ -109,7 +157,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public LocalDateTime getTime() {
-        return null;
+        log.info("Getting time");
+        return taskView.getTime();
     }
 
     /**
@@ -120,7 +169,8 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public int getIndex(AbstractTaskList list) {
-        return 0;
+        log.info("Getting task index for action");
+        return taskView.getTaskIndex(list);
     }
 
     /**
@@ -130,6 +180,7 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public boolean getActivity() {
-        return false;
+        log.info("Getting task activity");
+        return taskView.getActivity();
     }
 }

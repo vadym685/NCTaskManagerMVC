@@ -5,17 +5,24 @@ import ua.edu.sumdu.j2se.kushnir.tasks.model.Task;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.Tasks;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.util.TaskTime;
+import ua.edu.sumdu.j2se.kushnir.tasks.view.views.TaskViev;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedMap;
 
-public class TaskViewImpl {
+public class TaskViewImpl implements TaskViev {
 
     private static final Logger log = Logger.getLogger(TaskViewImpl.class);
+    private final Scanner scanner;
 
+    public TaskViewImpl(Scanner scanner) {
+        this.scanner = scanner;
+    }
     /**
      * Shows task list to user.
      *
