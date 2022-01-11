@@ -5,13 +5,13 @@ import java.util.stream.Stream;
 
 public abstract class AbstractTaskList implements Iterable<Task>, Serializable {
 
-    abstract void add(Task task);
+    public abstract void add(Task task);
 
-    abstract boolean remove(Task task);
+    public abstract boolean remove(Task task);
 
-    abstract int size();
+    public abstract int size();
 
-    abstract Task getTask(int index);
+    public abstract Task getTask(int index);
 
     abstract ListTypes.types getListType();
 
