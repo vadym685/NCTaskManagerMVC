@@ -54,9 +54,9 @@ public class TaskControllerImpl implements TaskController {
             task.setActive(true);
 
             list.add(task);
-            Output.println(Output.SUCCESSFUL_ADD);
+            System.out.println(Output.SUCCESSFUL_ADD);
         } else {
-            Output.println(Output.FAILURE_ADD);
+            System.out.println(Output.FAILURE_ADD);
         }
     }
 
@@ -74,7 +74,7 @@ public class TaskControllerImpl implements TaskController {
         task.setActive(true);
 
         list.add(task);
-        Output.println(Output.SUCCESSFUL_ADD);
+        System.out.println(Output.SUCCESSFUL_ADD);
     }
 
     /**
@@ -91,7 +91,7 @@ public class TaskControllerImpl implements TaskController {
 
                 int choice = scanner.nextInt();
                 if (choice == 0) {
-                    Output.println(Output.MAIN_MENU);
+                    System.out.println(Output.MAIN_MENU);
                     break;
                 } else {
                     switch (choice) {
@@ -124,7 +124,7 @@ public class TaskControllerImpl implements TaskController {
 
     private void editRepeatedTime(Task task) {
         log.info("Changing repeated task time");
-        Output.println("-_Enter new repeated task time_-");
+        System.out.println("-_Enter new repeated task time_-");
         while (true) {
             LocalDateTime start = view.getStartTime();
             LocalDateTime end = view.getEndTime();
@@ -132,33 +132,33 @@ public class TaskControllerImpl implements TaskController {
 
             if (checkParams(start, end, interval)) {
                 task.setTime(start, end, interval);
-                Output.println("Repeated task has successfully changed its time");
+                System.out.println("Repeated task has successfully changed its time");
                 break;
             } else {
-                Output.println("Changing the time of the repeated task was a failure");
+                System.out.println("Changing the time of the repeated task was a failure");
             }
         }
     }
 
     private void editNotRepeatedTime(Task task) {
         log.info("Changing not repeated task time");
-        Output.println("-_Enter new task time_-");
+        System.out.println("-_Enter new task time_-");
         LocalDateTime time = view.getTime();
         task.setTime(time);
-        Output.println("Not repeated task has successfully changed its time");
+        System.out.println("Not repeated task has successfully changed its time");
     }
 
     private void editTaskTitle(Task task) {
         log.info("Changing task title");
-        Output.println("-_Enter new task title: ");
+        System.out.println("-_Enter new task title: ");
         String title = view.getTitle();
         task.setTitle(title);
-        Output.println("The task successfully changed the name");
+        System.out.println("The task successfully changed the name");
     }
 
     private void editTaskRepeatedStatus(Task task) {
         log.info("Changing task repeated status");
-        Output.println("The task has the following repetition status -> " + task.isRepeated());
+        System.out.println("The task has the following repetition status -> " + task.isRepeated());
         if (task.isRepeated()) {
             makeNotRepeated(task);
         } else {
@@ -181,18 +181,18 @@ public class TaskControllerImpl implements TaskController {
         if (checkParams(start, end, interval)) {
             task.setTime(start, end, interval);
             task.setRepeated(true);
-            Output.println(Output.SUCCESSFUL_EDIT);
+            System.out.println(Output.SUCCESSFUL_EDIT);
         } else {
-            Output.println(Output.FAILURE_EDIT);
+            System.out.println(Output.FAILURE_EDIT);
         }
     }
 
     private void changeTaskActivityStatus(Task task) {
         log.info("Changing task activity");
-        Output.print("-_Enter new task activity status: ");
+        System.out.print("-_Enter new task activity status: ");
         boolean activity = view.getActivity();
         task.setActive(activity);
-        Output.println("The task successfully changed the activity status");
+        System.out.println("The task successfully changed the activity status");
     }
 
     /**
@@ -205,7 +205,7 @@ public class TaskControllerImpl implements TaskController {
         if (index > -1) {
             Task task = list.getTask(index);
             list.remove(task);
-            Output.println("Task #" + (index + 1) + " was deleted");
+            System.out.println("Task #" + (index + 1) + " was deleted");
         }
     }
 

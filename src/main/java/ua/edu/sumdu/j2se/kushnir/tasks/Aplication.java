@@ -23,17 +23,11 @@ public class Aplication {
     private final Path jsonPath;
     private final AbstractTaskList atl;
 
-    /**
-     * Empty constructor.
-     */
     public Aplication() {
         atl = TaskListFactory.createTaskList(ListTypes.types.ARRAY);
         jsonPath = FileSystems.getDefault().getPath(JSON_FILE).toAbsolutePath();
     }
 
-    /**
-     * Launches the Task Manager application.
-     */
     public void start() {
         log.info("Starting Task Manager application");
         loadTaskData();
@@ -57,7 +51,7 @@ public class Aplication {
             log.info("Writing data was successful");
         } catch (IOException e) {
             log.error(e);
-            Output.println("Error. Can't read tasks' data");
+            System.out.println("Error. Can't read tasks' data");
         }
     }
 

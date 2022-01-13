@@ -32,24 +32,22 @@ public class MainControllerImpl implements MainControler {
             int choice = scanner.nextInt();
             scanner.nextLine();
             if (choice == 0) {
-                Output.print("Do you want to finish? (Yes:No): ");
+                System.out.print("Do you want to finish? (Yes:No): ");
                 if (view.checkUserChoice()) {
-                    Output.println("Program was finished");
+                    System.out.println("Program was finished");
                     log.info("The Task Manager application is getting ready to end");
                     break;
                 }
             } else {
                 switch (choice) {
                     case 1:
-                        Output.print(QUESTION);
-                        if (view.checkUserChoice()) mainControler.addTask();
+                        mainControler.addTask();
                         break;
                     case 2:
-                        Output.print(QUESTION);
-                        if (view.checkUserChoice()) mainControler.editTask();
+                        mainControler.editTask();
                         break;
                     case 3:
-                        Output.print(QUESTION);
+                        System.out.print(QUESTION);
                         if (view.checkUserChoice()) mainControler.deleteTask();
                         break;
                     case 4:

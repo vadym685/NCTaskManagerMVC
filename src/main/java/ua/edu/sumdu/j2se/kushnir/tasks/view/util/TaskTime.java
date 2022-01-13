@@ -6,12 +6,6 @@ public final class TaskTime {
     private static final int SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
     private static final int SECONDS_IN_MINUTE = 60;
 
-    /**
-     * Returns converted task interval.
-     *
-     * @param repeatInterval - task interval for converting
-     * @return String representation of the interval
-     */
     public static String intervalFormatter(int repeatInterval) {
         StringBuilder interval = new StringBuilder();
 
