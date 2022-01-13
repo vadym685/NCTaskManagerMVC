@@ -1,11 +1,11 @@
 package ua.edu.sumdu.j2se.kushnir.tasks.controller.impl;
 
 import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.kushnir.tasks.NotificationManager;
 import ua.edu.sumdu.j2se.kushnir.tasks.controller.controllers.MainControler;
 import ua.edu.sumdu.j2se.kushnir.tasks.controller.controllers.TaskController;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.views.MainView;
-import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 
 import java.util.Scanner;
 
@@ -21,6 +21,10 @@ public class MainControllerImpl implements MainControler {
         this.view = view;
         this.scanner = new Scanner(System.in);
         this.mainControler = new TaskControllerImpl(list, view);
+
+        NotificationManager manager = new NotificationManager(list);
+        manager.setDaemon(true);
+        manager.start();
     }
 
 

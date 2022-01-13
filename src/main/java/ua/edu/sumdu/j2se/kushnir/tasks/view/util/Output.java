@@ -38,6 +38,17 @@ public interface Output {
         System.out.println("@ Your choice: ");
     }
 
+    static void printNotification(){
+        System.out.println("                Edit Menu               ");
+        System.out.println("# 1) Task title");
+        System.out.println("# 2) Task repeated status");
+        System.out.println("# 3) Task active");
+        System.out.println("# 4) Task time");
+        System.out.println("# 0) To main menu");
+        System.out.println("________________________________________");
+        System.out.println("@ Your choice: ");
+    }
+
     static void printlnCalendarDate(String date) {
         System.out.println("@\t______\t" + date + "\t______\t@");
     }
