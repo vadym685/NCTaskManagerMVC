@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.kushnir.tasks.notification.impl;
 
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.Task;
 import ua.edu.sumdu.j2se.kushnir.tasks.notification.controllers.CalendarNotificationController;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
@@ -23,13 +24,8 @@ public class CalendarNotificationImpl implements CalendarNotificationController 
         return instance;
     }
 
-    /**
-     * Displays upcoming tasks to the user.
-     *
-     * @param calendar - general task calendar to notify
-     */
     @Override
-    public void notify(SortedMap<LocalDateTime, Set<Task>> calendar) {
+    public void notify(@NotNull SortedMap<LocalDateTime, Set<Task>> calendar) {
         log.info("Execute notify command");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

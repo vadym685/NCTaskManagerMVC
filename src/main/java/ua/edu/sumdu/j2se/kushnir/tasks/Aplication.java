@@ -6,7 +6,6 @@ import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.ListTypes;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.TaskIO;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.TaskListFactory;
-import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.views.MainView;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.impl.MainViewImpl;
 

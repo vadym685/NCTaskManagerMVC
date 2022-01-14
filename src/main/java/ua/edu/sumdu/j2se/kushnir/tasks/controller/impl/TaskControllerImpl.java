@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.kushnir.tasks.controller.impl;
 
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import ua.edu.sumdu.j2se.kushnir.tasks.controller.controllers.TaskController;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.kushnir.tasks.model.Task;
@@ -12,42 +13,86 @@ import java.util.Scanner;
 
 public class TaskControllerImpl implements TaskController {
     private static final Logger log = Logger.getLogger(TaskControllerImpl.class);
-    private final MainView view;
+    private final MainView mainView;
     private final AbstractTaskList list;
     private final Scanner scanner;
 
-    /**
-     * Constructor.
-     *
-     * @param list - general task list
-     * @param view - view object
-     */
-    public TaskControllerImpl(AbstractTaskList list, MainView view) {
+    public TaskControllerImpl(AbstractTaskList list, MainView mainView) {
         this.list = list;
-        this.view = view;
+        this.mainView = mainView;
         scanner = new Scanner(System.in);
     }
 
-    /**
-     * Adds a new task to the general list.
-     */
     @Override
-    public void addTask() {
+    public void createTask() {
         log.info("Execute add action");
-        String title = view.getTitle();
-        if (view.getRepeatStatus()) {
+        String title = mainView.getTitle();
+        if (mainView.getRepeatStatus()) {
             createRepeated(title);
         } else {
             createNotRepeated(title);
         }
     }
 
+    @Override
+    public void editTask() {
+        log.info("Execute edit action");
+        int index = mainView.getIndex(list) - 1;
+        if (index > -1) {
+            Task task = list.getTask(index);
+            while (true) {
+                mainView.editMenu();
+
+                int choice = scanner.nextInt();
+                if (choice == 0) {
+                    System.out.println(Output.MAIN_MENU);
+                    break;
+                } else if (choice == 1) {
+                    editTaskTitle(task);
+                    break;
+                } else if (choice == 2) {
+                    editTaskRepeatedStatus(task);
+                    break;
+                } else if (choice == 3) {
+                    changeTaskActivityStatus(task);
+                    break;
+                } else if (choice == 4) {
+                    changeTaskTimeOptions(task);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void deleteTask() {
+        log.info("Execute delete action");
+        int index = mainView.getIndex(list) - 1;
+        if (index > -1) {
+            Task task = list.getTask(index);
+            list.remove(task);
+            System.out.println("Task #" + (index + 1) + " was deleted");
+        }
+    }
+
+    @Override
+    public void showTaskList() {
+        log.info("Execute show task list action");
+        mainView.showTaskList(list);
+    }
+
+    @Override
+    public void showCalendar() {
+        log.info("Execute show task calendar action");
+        mainView.showCalendar(list);
+    }
+
     private void createRepeated(String title) {
         log.info("Creating repeated task");
         Task task;
-        LocalDateTime start = view.getStartTime();
-        LocalDateTime end = view.getEndTime();
-        int interval = view.getInterval();
+        LocalDateTime start = mainView.getStartTime();
+        LocalDateTime end = mainView.getEndTime();
+        int interval = mainView.getInterval();
 
         if (checkParams(start, end, interval)) {
             task = new Task(title, start, end, interval);
@@ -60,15 +105,10 @@ public class TaskControllerImpl implements TaskController {
         }
     }
 
-    private boolean checkParams(LocalDateTime start, LocalDateTime end, int interval) {
-        return (start.isBefore(end) || !start.equals(end))
-                && start.plusSeconds(interval).isBefore(end);
-    }
-
     private void createNotRepeated(String title) {
         log.info("Creating not repeated task");
         Task task;
-        LocalDateTime time = view.getTime();
+        LocalDateTime time = mainView.getTime();
 
         task = new Task(title, time);
         task.setActive(true);
@@ -77,43 +117,12 @@ public class TaskControllerImpl implements TaskController {
         System.out.println(Output.SUCCESSFUL_ADD);
     }
 
-    /**
-     * Edits an existing task in the general list.
-     */
-    @Override
-    public void editTask() {
-        log.info("Execute edit action");
-        int index = view.getIndex(list) - 1;
-        if (index > -1) {
-            Task task = list.getTask(index);
-            while (true) {
-                view.editMenu();
-
-                int choice = scanner.nextInt();
-                if (choice == 0) {
-                    System.out.println(Output.MAIN_MENU);
-                    break;
-                } else {
-                    switch (choice) {
-                        case 1:
-                            editTaskTitle(task);
-                            break;
-                        case 2:
-                            editTaskRepeatedStatus(task);
-                            break;
-                        case 3:
-                            changeTaskActivityStatus(task);
-                            break;
-                        case 4:
-                            changeTaskTimeOptions(task);
-                            break;
-                    }
-                }
-            }
-        }
+    private boolean checkParams(@NotNull LocalDateTime start, LocalDateTime end, int interval) {
+        return (start.isBefore(end) || !start.equals(end))
+                && start.plusSeconds(interval).isBefore(end);
     }
 
-    private void changeTaskTimeOptions(Task task) {
+    private void changeTaskTimeOptions(@NotNull Task task) {
         log.info("Changing task time options");
         if (task.isRepeated()) {
             editRepeatedTime(task);
@@ -126,9 +135,9 @@ public class TaskControllerImpl implements TaskController {
         log.info("Changing repeated task time");
         System.out.println("-_Enter new repeated task time_-");
         while (true) {
-            LocalDateTime start = view.getStartTime();
-            LocalDateTime end = view.getEndTime();
-            int interval = view.getInterval();
+            LocalDateTime start = mainView.getStartTime();
+            LocalDateTime end = mainView.getEndTime();
+            int interval = mainView.getInterval();
 
             if (checkParams(start, end, interval)) {
                 task.setTime(start, end, interval);
@@ -140,23 +149,23 @@ public class TaskControllerImpl implements TaskController {
         }
     }
 
-    private void editNotRepeatedTime(Task task) {
-        log.info("Changing not repeated task time");
-        System.out.println("-_Enter new task time_-");
-        LocalDateTime time = view.getTime();
+    private void editNotRepeatedTime(@NotNull Task task) {
+        log.info("Changing not repeated time");
+        System.out.println("Enter new time to task");
+        LocalDateTime time = mainView.getTime();
         task.setTime(time);
-        System.out.println("Not repeated task has successfully changed its time");
+        System.out.println("Task has successfully changed");
     }
 
-    private void editTaskTitle(Task task) {
-        log.info("Changing task title");
-        System.out.println("-_Enter new task title: ");
-        String title = view.getTitle();
+    private void editTaskTitle(@NotNull Task task) {
+        log.info("Changing title to task");
+        System.out.println("-_Enter new title to task: ");
+        String title = mainView.getTitle();
         task.setTitle(title);
-        System.out.println("The task successfully changed the name");
+        System.out.println("Task has successfully changed");
     }
 
-    private void editTaskRepeatedStatus(Task task) {
+    private void editTaskRepeatedStatus(@NotNull Task task) {
         log.info("Changing task repeated status");
         System.out.println("The task has the following repetition status -> " + task.isRepeated());
         if (task.isRepeated()) {
@@ -166,17 +175,17 @@ public class TaskControllerImpl implements TaskController {
         }
     }
 
-    private void makeNotRepeated(Task task) {
+    private void makeNotRepeated(@NotNull Task task) {
         log.info("Changing: repeated task -> not repeated task");
-        task.setTime(view.getTime());
+        task.setTime(mainView.getTime());
         task.setRepeated(false);
     }
 
     private void makeRepeated(Task task) {
         log.info("Changing: not repeated task -> repeated task");
-        LocalDateTime start = view.getStartTime();
-        LocalDateTime end = view.getEndTime();
-        int interval = view.getInterval();
+        LocalDateTime start = mainView.getStartTime();
+        LocalDateTime end = mainView.getEndTime();
+        int interval = mainView.getInterval();
 
         if (checkParams(start, end, interval)) {
             task.setTime(start, end, interval);
@@ -187,43 +196,12 @@ public class TaskControllerImpl implements TaskController {
         }
     }
 
-    private void changeTaskActivityStatus(Task task) {
+    private void changeTaskActivityStatus(@NotNull Task task) {
         log.info("Changing task activity");
         System.out.print("-_Enter new task activity status: ");
-        boolean activity = view.getActivity();
+        boolean activity = mainView.getActivity();
         task.setActive(activity);
-        System.out.println("The task successfully changed the activity status");
+        System.out.println("Task has successfully changed");
     }
 
-    /**
-     * Deletes an existing task from the general list.
-     */
-    @Override
-    public void deleteTask() {
-        log.info("Execute delete action");
-        int index = view.getIndex(list) - 1;
-        if (index > -1) {
-            Task task = list.getTask(index);
-            list.remove(task);
-            System.out.println("Task #" + (index + 1) + " was deleted");
-        }
-    }
-
-    /**
-     * Shows the general task list.
-     */
-    @Override
-    public void showTaskList() {
-        log.info("Execute show task list action");
-        view.showTaskList(list);
-    }
-
-    /**
-     * Shows the general calendar of tasks.
-     */
-    @Override
-    public void showCalendar() {
-        log.info("Execute show task calendar action");
-        view.showCalendar(list);
-    }
 }

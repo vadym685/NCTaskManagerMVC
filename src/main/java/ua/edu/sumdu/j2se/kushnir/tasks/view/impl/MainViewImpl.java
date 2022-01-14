@@ -4,14 +4,14 @@ import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.util.Output;
 import ua.edu.sumdu.j2se.kushnir.tasks.view.views.MainView;
 import org.apache.log4j.Logger;
-import ua.edu.sumdu.j2se.kushnir.tasks.view.views.TaskViev;
+import ua.edu.sumdu.j2se.kushnir.tasks.view.views.TaskView;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class MainViewImpl implements MainView {
     private static final Logger log = Logger.getLogger(MainView.class);
-    private final TaskViev taskView;
+    private final TaskView taskView;
     private final Scanner scanner;
 
     public MainViewImpl() {
@@ -49,27 +49,34 @@ public class MainViewImpl implements MainView {
         return userAnswer().equalsIgnoreCase("yes");
     }
 
-    private String userAnswer() {
-        log.info("Parsing the user response");
-        String answer = scanner.nextLine();
-        while (!answer.equalsIgnoreCase("yes")
-                && !answer.equalsIgnoreCase("no")) {
-            System.out.print("You should select #Yes# or #No#: ");
-            answer = scanner.nextLine();
-        }
-        return answer;
+    @Override
+    public boolean getRepeatStatus() {
+        log.info("Getting repeated status");
+        return taskView.getRepeatStatus();
+    }
+
+    @Override
+    public boolean getActivity() {
+        log.info("Getting task activity");
+        return taskView.getActivity();
+    }
+
+    @Override
+    public int getInterval() {
+        log.info("Getting task interval");
+        return taskView.getInterval();
+    }
+
+    @Override
+    public int getIndex(AbstractTaskList list) {
+        log.info("Getting task index for action");
+        return taskView.getTaskIndex(list);
     }
 
     @Override
     public String getTitle() {
         log.info("Getting task title");
         return taskView.getTitle();
-    }
-
-    @Override
-    public boolean getRepeatStatus() {
-        log.info("Getting repeated status");
-        return taskView.getRepeatStatus();
     }
 
     @Override
@@ -85,26 +92,21 @@ public class MainViewImpl implements MainView {
     }
 
     @Override
-    public int getInterval() {
-        log.info("Getting task interval");
-        return taskView.getInterval();
-    }
-
-    @Override
     public LocalDateTime getTime() {
         log.info("Getting time");
         return taskView.getTime();
     }
 
-    @Override
-    public int getIndex(AbstractTaskList list) {
-        log.info("Getting task index for action");
-        return taskView.getTaskIndex(list);
+    private String userAnswer() {
+        log.info("Parsing the user response");
+        String answer = scanner.nextLine();
+        while (!answer.equalsIgnoreCase("yes")
+                && !answer.equalsIgnoreCase("no")) {
+            System.out.print("You should select #Yes# or #No#: ");
+            answer = scanner.nextLine();
+        }
+        return answer;
     }
 
-    @Override
-    public boolean getActivity() {
-        log.info("Getting task activity");
-        return taskView.getActivity();
-    }
+
 }

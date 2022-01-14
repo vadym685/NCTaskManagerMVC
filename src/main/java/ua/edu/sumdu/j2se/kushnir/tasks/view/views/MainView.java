@@ -16,19 +16,19 @@ public interface MainView {
 
     boolean checkUserChoice();
 
-    String getTitle();
-
     boolean getRepeatStatus();
+
+    boolean getActivity();
+
+    int getInterval();
+
+    int getIndex(AbstractTaskList list);
+
+    String getTitle();
 
     LocalDateTime getStartTime();
 
     LocalDateTime getEndTime();
 
-    int getInterval();
-
     LocalDateTime getTime();
-
-    int getIndex(AbstractTaskList list);
-
-    boolean getActivity();
 }

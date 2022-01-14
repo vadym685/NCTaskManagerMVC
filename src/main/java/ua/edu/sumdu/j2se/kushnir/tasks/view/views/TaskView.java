@@ -4,24 +4,26 @@ import ua.edu.sumdu.j2se.kushnir.tasks.model.AbstractTaskList;
 
 import java.time.LocalDateTime;
 
-public interface TaskViev {
+public interface TaskView {
+
     void showList(AbstractTaskList list);
 
     void getCalendar(AbstractTaskList list);
 
-    String getTitle();
+    boolean getActivity();
 
     boolean getRepeatStatus();
+
+    int getInterval();
+
+    int getTaskIndex(AbstractTaskList list);
+
+    String getTitle();
 
     LocalDateTime getStartTime();
 
     LocalDateTime getEndTime();
 
-    int getInterval();
-
     LocalDateTime getTime();
 
-    int getTaskIndex(AbstractTaskList list);
-
-    boolean getActivity();
 }
