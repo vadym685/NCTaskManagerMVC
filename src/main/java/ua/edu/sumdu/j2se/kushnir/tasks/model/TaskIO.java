@@ -3,6 +3,7 @@ package ua.edu.sumdu.j2se.kushnir.tasks.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.time.Instant;
@@ -11,6 +12,7 @@ import java.time.ZoneId;
 import java.util.Objects;
 
 public class TaskIO {
+    private static final Logger log = Logger.getLogger(TaskIO.class);
 
     // a method that writes tasks from a list to a stream in binary format
     public static void write(AbstractTaskList tasks, OutputStream out) {
@@ -31,6 +33,7 @@ public class TaskIO {
             }
             outputStream.flush();
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -58,6 +61,7 @@ public class TaskIO {
                 tasks.add(task);
             }
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -70,6 +74,7 @@ public class TaskIO {
         try (FileOutputStream fos = new FileOutputStream(file)) {
             write(tasks, fos);
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -79,6 +84,7 @@ public class TaskIO {
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             read(tasks, fileInputStream);
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -92,6 +98,7 @@ public class TaskIO {
             writer.write(gson.toJson(tempList));
             writer.flush();
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -111,6 +118,7 @@ public class TaskIO {
         try (Writer fileWriter = new FileWriter(file)) {
             write(tasks, fileWriter);
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -120,6 +128,7 @@ public class TaskIO {
         try (FileReader fileReader = new FileReader(file)) {
             read(tasks, fileReader);
         } catch (IOException e) {
+            log.error(e.getStackTrace());
             e.printStackTrace();
         }
     }

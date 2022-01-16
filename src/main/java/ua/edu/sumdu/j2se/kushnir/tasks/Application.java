@@ -16,14 +16,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 
-public class Aplication {
-    private static final Logger log = Logger.getLogger(Aplication.class);
+public class Application {
+    private static final Logger log = Logger.getLogger(Application.class);
     private static final String JSON_FILE = "data.json";
     private final Path jsonPath;
-    private final AbstractTaskList atl;
+    private final AbstractTaskList taskList;
 
-    public Aplication() {
-        atl = TaskListFactory.createTaskList(ListTypes.types.ARRAY);
+    public Application() {
+        taskList = TaskListFactory.createTaskList(ListTypes.types.ARRAY);
         jsonPath = FileSystems.getDefault().getPath(JSON_FILE).toAbsolutePath();
     }
 
@@ -33,11 +33,17 @@ public class Aplication {
 
         log.info("Declare View and Controller");
         MainView mainView = new MainViewImpl();
-        MainControllerImpl controller = new MainControllerImpl(atl, mainView);
+        MainControllerImpl controller = new MainControllerImpl(taskList, mainView);
         controller.execute();
 
         saveTaskData();
         log.info("Task Manager application has finished its work");
+    }
+
+    private void loadTaskData() {
+        log.info("Reading tasks' data from json file");
+        TaskIO.readText(taskList, new File(String.valueOf(jsonPath.toAbsolutePath())));
+        log.info("Reading data was successful");
     }
 
     private void saveTaskData() {
@@ -46,7 +52,7 @@ public class Aplication {
             Files.deleteIfExists(jsonPath);
 
             log.info("Write tasks' data into json file");
-            TaskIO.writeText(atl, new File(String.valueOf(jsonPath.toAbsolutePath())));
+            TaskIO.writeText(taskList, new File(String.valueOf(jsonPath.toAbsolutePath())));
             log.info("Writing data was successful");
         } catch (IOException e) {
             log.error(e);
@@ -54,9 +60,5 @@ public class Aplication {
         }
     }
 
-    private void loadTaskData() {
-        log.info("Reading tasks' data from json file");
-        TaskIO.readText(atl, new File(String.valueOf(jsonPath.toAbsolutePath())));
-        log.info("Reading data was successful");
-    }
+
 }

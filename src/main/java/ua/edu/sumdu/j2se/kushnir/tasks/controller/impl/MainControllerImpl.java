@@ -36,10 +36,10 @@ public class MainControllerImpl implements MainControler {
             int choice = scanner.nextInt();
             scanner.nextLine();
             if (choice == 0) {
-                System.out.print("Do you want to finish? (Yes:No): ");
+                System.out.print("Do you want to finish? (Yes/No): ");
                 if (view.checkUserChoice()) {
                     System.out.println("Program was finished");
-                    log.info("The Task Manager application is getting ready to end");
+                    log.info("Program was finished");
                     break;
                 }
             } else if (choice == 1) {

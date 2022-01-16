@@ -222,8 +222,9 @@ public class TaskViewImpl implements TaskView {
     private void getList(@NotNull AbstractTaskList list) {
         log.info("Getting not empty task list");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        StringBuilder repeated = new StringBuilder();
-        StringBuilder notRepeated = new StringBuilder();
+        StringBuilder repeatedStringBuilder = new StringBuilder();
+        StringBuilder notRepeatedStringBuilder = new StringBuilder();
+
         int i = 1;
         for (Task t : list) {
             String title = t.getTitle();
@@ -235,7 +236,7 @@ public class TaskViewImpl implements TaskView {
 
             if (t.isRepeated()) {
                 log.info("Setting repeated task to general list");
-                repeated.append(i++).append("\t")
+                repeatedStringBuilder.append(i++).append("\t")
                         .append(title).append("\t\t")
                         .append(start).append("\t")
                         .append(end).append("\t")
@@ -243,14 +244,14 @@ public class TaskViewImpl implements TaskView {
                         .append(active).append("\n");
             } else {
                 log.info("Setting not repeated task to general list");
-                notRepeated.append(i++).append("\t")
+                notRepeatedStringBuilder.append(i++).append("\t")
                         .append(title).append("\t\t")
                         .append(time).append("\t")
                         .append(active).append("\n");
             }
         }
-        showRepeated(repeated);
-        showNotRepeated(notRepeated);
+        showRepeated(repeatedStringBuilder);
+        showNotRepeated(notRepeatedStringBuilder);
     }
 
     private void showRepeated(@NotNull StringBuilder repeated) {

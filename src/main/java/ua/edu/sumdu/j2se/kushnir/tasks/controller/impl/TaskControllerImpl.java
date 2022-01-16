@@ -25,7 +25,7 @@ public class TaskControllerImpl implements TaskController {
 
     @Override
     public void createTask() {
-        log.info("Execute add action");
+        log.info("start create new task");
         String title = mainView.getTitle();
         if (mainView.getRepeatStatus()) {
             createRepeated(title);
@@ -36,7 +36,7 @@ public class TaskControllerImpl implements TaskController {
 
     @Override
     public void editTask() {
-        log.info("Execute edit action");
+        log.info("start edit task");
         int index = mainView.getIndex(list) - 1;
         if (index > -1) {
             Task task = list.getTask(index);
@@ -66,12 +66,12 @@ public class TaskControllerImpl implements TaskController {
 
     @Override
     public void deleteTask() {
-        log.info("Execute delete action");
+        log.info("start delete task");
         int index = mainView.getIndex(list) - 1;
         if (index > -1) {
             Task task = list.getTask(index);
             list.remove(task);
-            System.out.println("Task #" + (index + 1) + " was deleted");
+            System.out.println("Task №" + (index + 1) + " was deleted");
         }
     }
 
