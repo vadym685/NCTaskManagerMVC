@@ -16,11 +16,11 @@ public class NotificationManager extends Thread{
     private static final Logger log = Logger.getLogger(NotificationManager.class);
     private static final long TIME = 300_000; // -> 3 minutes
     private static final long MINUTES = 60;
-    private final AbstractTaskList atl;
+    private final AbstractTaskList taskList;
     private final CalendarNotificationController notification;
 
     public NotificationManager(AbstractTaskList list) {
-        atl = list;
+        taskList = list;
         notification = CalendarNotificationImpl.getInstance();
     }
 
@@ -29,7 +29,7 @@ public class NotificationManager extends Thread{
     public void run() {
         SortedMap<LocalDateTime, Set<Task>> calendar;
         while (true) {
-            calendar = Tasks.calendar(atl,
+            calendar = Tasks.calendar(taskList,
                     LocalDateTime.now(),
                     LocalDateTime.now().plusMinutes(MINUTES));
             if (!calendar.isEmpty()) {

@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class MainControllerImpl implements MainControler {
 
     private static final Logger log = Logger.getLogger(MainControllerImpl.class);
-    private static final String QUESTION = "Are you confident in your choice? (Yes:No) ";
+    private static final String QUESTION = "Are you confident in your choice? (Yes/No) ";
     private final TaskController mainControler;
     private final MainView view;
     private final Scanner scanner;

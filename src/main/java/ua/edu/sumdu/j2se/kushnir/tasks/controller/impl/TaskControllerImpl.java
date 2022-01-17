@@ -28,9 +28,9 @@ public class TaskControllerImpl implements TaskController {
         log.info("start create new task");
         String title = mainView.getTitle();
         if (mainView.getRepeatStatus()) {
-            createRepeated(title);
+            createRepeatedTask(title);
         } else {
-            createNotRepeated(title);
+            createNotRepeatedTask(title);
         }
     }
 
@@ -87,7 +87,7 @@ public class TaskControllerImpl implements TaskController {
         mainView.showCalendar(list);
     }
 
-    private void createRepeated(String title) {
+    private void createRepeatedTask(String title) {
         log.info("Creating repeated task");
         Task task;
         LocalDateTime start = mainView.getStartTime();
@@ -105,7 +105,7 @@ public class TaskControllerImpl implements TaskController {
         }
     }
 
-    private void createNotRepeated(String title) {
+    private void createNotRepeatedTask(String title) {
         log.info("Creating not repeated task");
         Task task;
         LocalDateTime time = mainView.getTime();
