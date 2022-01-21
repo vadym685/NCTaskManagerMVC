@@ -35,7 +35,7 @@ public class TaskIO {
             outputStream.flush();
         } catch (IOException e) {
             log.log(Level.ERROR,"IOException:",e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -63,7 +63,7 @@ public class TaskIO {
             }
         } catch (IOException e) {
             log.log(Level.ERROR,"IOException:",e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -76,7 +76,7 @@ public class TaskIO {
             write(tasks, fos);
         } catch (IOException e) {
             log.error(e.getStackTrace());
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -86,7 +86,7 @@ public class TaskIO {
             read(tasks, fileInputStream);
         } catch (IOException e) {
             log.log(Level.ERROR,"IOException:",e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -100,7 +100,7 @@ public class TaskIO {
             writer.flush();
         } catch (IOException e) {
             log.log(Level.ERROR,"IOException:",e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -120,7 +120,7 @@ public class TaskIO {
             write(tasks, fileWriter);
         } catch (IOException e) {
             log.log(Level.ERROR,"IOException:",e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
