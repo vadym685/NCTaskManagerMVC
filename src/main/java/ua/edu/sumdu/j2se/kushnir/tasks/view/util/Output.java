@@ -39,29 +39,22 @@ public interface Output {
     }
 
     static void printNotification(){
-        System.out.println("                Edit Menu               ");
-        System.out.println("# 1) Task title");
-        System.out.println("# 2) Task repeated status");
-        System.out.println("# 3) Task active");
-        System.out.println("# 4) Task time");
-        System.out.println("# 0) To main menu");
-        System.out.println("________________________________________");
-        System.out.println("@ Your choice: ");
+        System.out.println("                Scheduled tasks reminder                ");
     }
 
     static void printlnCalendarDate(String date) {
-        System.out.println("@\t______\t" + date + "\t______\t@");
+        System.out.println("Date: " + date);
     }
 
     static void printlnCalendarTask(String title) {
-        System.out.println("\t\t@\t~~~\t" + title + "\t~~~\t@");
+        System.out.println("Title: " + title);
     }
 
     static void notifyCalendarDate(String date) {
-        System.out.println("%\t!!!!!!\t" + date + "\t!!!!!!\t%");
+        System.out.println("Scheduled task reminder: " + date);
     }
 
     static void notifyCalendarTask(String title) {
-        System.out.println("\t\t%\t&&&\t" + title + "\t&&&\t%");
+        System.out.println("Title: " + title);
     }
 }

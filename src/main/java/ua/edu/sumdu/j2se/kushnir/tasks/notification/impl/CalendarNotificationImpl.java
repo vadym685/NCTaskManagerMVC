@@ -41,7 +41,7 @@ public class CalendarNotificationImpl implements CalendarNotificationController 
             }
             System.out.println("");
         }
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
         log.info("Notify command is completed");
     }
 }

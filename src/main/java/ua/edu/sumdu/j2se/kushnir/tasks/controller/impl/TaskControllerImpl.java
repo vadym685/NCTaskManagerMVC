@@ -47,18 +47,21 @@ public class TaskControllerImpl implements TaskController {
                 if (choice == 0) {
                     System.out.println(Output.MAIN_MENU);
                     break;
-                } else if (choice == 1) {
-                    editTaskTitle(task);
-                    break;
-                } else if (choice == 2) {
-                    editTaskRepeatedStatus(task);
-                    break;
-                } else if (choice == 3) {
-                    changeTaskActivityStatus(task);
-                    break;
-                } else if (choice == 4) {
-                    changeTaskTimeOptions(task);
-                    break;
+                } else {
+                    switch (choice) {
+                        case 1:
+                            editTaskTitle(task);
+                            break;
+                        case 2:
+                            editTaskRepeatedStatus(task);
+                            break;
+                        case 3:
+                            changeTaskActivityStatus(task);
+                            break;
+                        case 4:
+                            changeTaskTimeOptions(task);
+                            break;
+                    }
                 }
             }
         }

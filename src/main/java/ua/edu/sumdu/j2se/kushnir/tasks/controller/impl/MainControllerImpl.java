@@ -42,22 +42,25 @@ public class MainControllerImpl implements MainControler {
                     log.info("Program was finished");
                     break;
                 }
-            } else if (choice == 1) {
-                mainControler.createTask();
-                break;
-            } else if (choice == 2) {
-                mainControler.editTask();
-                break;
-            } else if (choice == 3) {
-                System.out.print(QUESTION);
-                if (view.checkUserChoice()) mainControler.deleteTask();
-                break;
-            } else if (choice == 4) {
-                mainControler.showTaskList();
-                break;
-            } else if (choice == 5) {
-                mainControler.showCalendar();
-                break;
+            } else {
+                switch (choice) {
+                    case 1:
+                        mainControler.createTask();
+                        break;
+                    case 2:
+                        mainControler.editTask();
+                        break;
+                    case 3:
+                        System.out.print(QUESTION);
+                        if (view.checkUserChoice()) mainControler.deleteTask();
+                        break;
+                    case 4:
+                        mainControler.showTaskList();
+                        break;
+                    case 5:
+                        mainControler.showCalendar();
+                        break;
+                }
             }
         }
     }

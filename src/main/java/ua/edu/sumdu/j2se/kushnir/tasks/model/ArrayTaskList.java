@@ -101,7 +101,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
             @Override
             public boolean hasNext() {
-                if (countOfElements == 1) {
+                if (countOfElements == 0) {
                     return false;
                 }
                 return cursor < size();
